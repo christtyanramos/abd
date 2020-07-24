@@ -1,5 +1,6 @@
 package br.com.abd.api.db.service;
 
+import br.com.abd.api.security.JWTUtil;
 import br.com.abd.api.telefone.entity.Telefone;
 import br.com.abd.api.telefone.repository.TelefoneRepository;
 import br.com.abd.api.usuario.entity.Usuario;
@@ -23,14 +24,17 @@ public class DBServiceImpl implements DBService {
     @Autowired
     private TelefoneRepository telefoneRepository;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @Override
     public void instantiateTestDatabase() {
 
         Usuario usuario1 = new Usuario(null, "Christtyan Ramos", "christtyanr@gmail.com",
-                passwordEncoder.encode("teste123"), new Date(), null, new Date());
+                passwordEncoder.encode("teste123"), new Date(), null, new Date(), jwtUtil.generateToken("christtyanr@gmail.com"));
 
         Usuario usuario2 = new Usuario(null, "João Pedro", "joaop@gmail.com",
-                passwordEncoder.encode("teste12345"), new Date(), null, new Date());
+                passwordEncoder.encode("teste12345"), new Date(), null, new Date(), jwtUtil.generateToken("joaop@gmail.com"));
 
         if (usuarioRepository.findByEmail(usuario1.getEmail()) == null) {
             usuario1 = usuarioRepository.save(usuario1);

@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -25,9 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (usuario == null) {
             throw new UsernameNotFoundException(email);
         }
-
-        usuario.setUltimo_login(new Date());
-        usuarioRepository.save(usuario);
 
         return new UserSS(usuario.getId(), usuario.getEmail(), usuario.getSenha());
     }

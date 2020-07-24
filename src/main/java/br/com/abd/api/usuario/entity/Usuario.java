@@ -38,6 +38,9 @@ public class Usuario implements Serializable {
     @Column(name = "DT_ULTIMO_LOGIN")
     private Date ultimo_login;
 
+    @Column(name = "DS_TOKEN")
+    private String token;
+
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<>();
 
@@ -45,7 +48,7 @@ public class Usuario implements Serializable {
         super();
     }
 
-    public Usuario(Long id, String nome, String email, String senha, Date data_criacao, Date data_atualizacao, Date ultimo_login) {
+    public Usuario(Long id, String nome, String email, String senha, Date data_criacao, Date data_atualizacao, Date ultimo_login, String token) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -53,6 +56,8 @@ public class Usuario implements Serializable {
         this.data_criacao = data_criacao;
         this.data_atualizacao = data_atualizacao;
         this.ultimo_login = ultimo_login;
+        this.token = token;
+
     }
 
     public Long getId() {
@@ -109,6 +114,14 @@ public class Usuario implements Serializable {
 
     public void setUltimo_login(Date ultimo_login) {
         this.ultimo_login = ultimo_login;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<Telefone> getTelefones() {

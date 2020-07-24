@@ -1,6 +1,8 @@
 package br.com.abd.api.usuario.service;
 
 import br.com.abd.api.exception.HttpException;
+import br.com.abd.api.security.JWTUtil;
+import br.com.abd.api.security.SenhaUtil;
 import br.com.abd.api.telefone.entity.Telefone;
 import br.com.abd.api.telefone.service.TelefoneService;
 import br.com.abd.api.usuario.entity.Usuario;
@@ -24,6 +26,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private TelefoneService telefoneService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @Override
     public Usuario save(Usuario usuario) {
 
@@ -38,6 +43,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuario = usuarioRepository.save(usuario);
 
+        String token = jwtUtil.generateToken(usuario.getEmail());
+        usuario.setToken(token);
+        usuario = usuarioRepository.save(usuario);
+
         if (usuario.getTelefones() != null && !usuario.getTelefones().isEmpty()) {
             for (Telefone telefone : usuario.getTelefones()) {
                 telefone.setUsuario_id(usuario.getId());
@@ -46,6 +55,21 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return usuario;
+    }
+
+    public Usuario login(String email, String password) {
+
+        Usuario entity = usuarioRepository.findByEmail(email);
+
+        if (entity == null || !SenhaUtil.validPassword(password, entity.getSenha())) {
+            throw new HttpException("Usuário e/ou senha inválidos", HttpStatus.UNAUTHORIZED);
+        }
+
+        entity.setData_atualizacao(new Date());
+        entity.setUltimo_login(new Date());
+
+        return usuarioRepository.save(entity);
+
     }
 
 }

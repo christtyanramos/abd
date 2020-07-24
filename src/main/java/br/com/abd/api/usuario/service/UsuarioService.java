@@ -6,4 +6,6 @@ public interface UsuarioService {
 
     Usuario save(Usuario usuario);
 
+    Usuario login(String email, String password);
+
 }

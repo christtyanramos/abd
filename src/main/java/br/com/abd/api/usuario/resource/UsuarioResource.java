@@ -31,6 +31,8 @@ public class UsuarioResource implements Serializable {
 
     private Date ultimo_login;
 
+    private String token;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<TelefoneResource> telefones = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public class UsuarioResource implements Serializable {
         this.setData_criacao(entity.getData_criacao());
         this.setData_atualizacao(entity.getData_atualizacao());
         this.setUltimo_login(entity.getUltimo_login());
+        this.setToken(entity.getToken());
     }
 
     public Usuario toEntity() {
@@ -121,6 +124,14 @@ public class UsuarioResource implements Serializable {
 
     public void setUltimo_login(Date ultimo_login) {
         this.ultimo_login = ultimo_login;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<TelefoneResource> getTelefones() {
