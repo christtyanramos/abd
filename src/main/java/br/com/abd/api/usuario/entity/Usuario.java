@@ -41,6 +41,20 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<>();
 
+    public Usuario() {
+        super();
+    }
+
+    public Usuario(Long id, String nome, String email, String senha, Date data_criacao, Date data_atualizacao, Date ultimo_login) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.data_criacao = data_criacao;
+        this.data_atualizacao = data_atualizacao;
+        this.ultimo_login = ultimo_login;
+    }
+
     public Long getId() {
         return id;
     }

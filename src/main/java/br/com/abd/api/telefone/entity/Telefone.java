@@ -31,6 +31,17 @@ public class Telefone implements Serializable {
     @JoinColumn(name = "CD_USUARIO", nullable = false, insertable = false, updatable = false)
     private Usuario usuario;
 
+    public Telefone() {
+        super();
+    }
+
+    public Telefone(Long id, Long usuario_id, String numero, String ddd) {
+        this.id = id;
+        this.usuario_id = usuario_id;
+        this.numero = numero;
+        this.ddd = ddd;
+    }
+
     public Long getId() {
         return id;
     }
