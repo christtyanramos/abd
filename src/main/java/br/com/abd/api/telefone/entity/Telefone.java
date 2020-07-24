@@ -14,8 +14,8 @@ public class Telefone implements Serializable {
 
     @Id
     @GeneratedValue(generator = "SEQ_TB_TELEFONE", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "SEQ_TB_TELEFONE", sequenceName = "SEQ_TB_TELEFONE", allocationSize = 1)
-    @Column(name = "CD_TELEFONE", nullable = false)
+    @SequenceGenerator(name = "SEQ_TB_TELEFONE", sequenceName = "SEQ_TB_TELEFONE")
+    @Column(name = "CD_TELEFONE", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "CD_USUARIO", nullable = false)

@@ -28,17 +28,18 @@ public class DBServiceImpl implements DBService {
         Usuario usuario2 = new Usuario(null, "João Pedro", "joaop@gmail.com",
                 "teste12345", new Date(), null, new Date());
 
-        usuario1 = usuarioRepository.save(usuario1);
+        if (usuarioRepository.findByEmail(usuario1.getEmail()) == null) {
+            usuario1 = usuarioRepository.save(usuario1);
+            Telefone telefone1 = new Telefone(null, usuario1.getId(), "998162881", "81");
+            telefoneRepository.save(telefone1);
+        }
 
-        usuario2 = usuarioRepository.save(usuario2);
-
-        Telefone telefone1 = new Telefone(null, usuario1.getId(), "998162881", "81");
-
-        Telefone telefone2 = new Telefone(null, usuario2.getId(), "999998888", "81");
-
-        Telefone telefone3 = new Telefone(null, usuario2.getId(), "997886644", "81");
-
-        telefoneRepository.saveAll(Arrays.asList(telefone1, telefone2, telefone3));
+        if (usuarioRepository.findByEmail(usuario2.getEmail()) == null) {
+            usuario2 = usuarioRepository.save(usuario2);
+            Telefone telefone2 = new Telefone(null, usuario2.getId(), "999998888", "81");
+            Telefone telefone3 = new Telefone(null, usuario2.getId(), "997886644", "81");
+            telefoneRepository.saveAll(Arrays.asList(telefone2, telefone3));
+        }
 
     }
 }
