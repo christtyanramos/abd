@@ -7,12 +7,16 @@ import br.com.abd.api.usuario.entity.Usuario;
 import br.com.abd.api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -29,6 +33,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         if (usuario.getId() == null) {
 
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
             usuario.setData_criacao(new Date());
             usuario.setData_atualizacao(null);
             usuario.setUltimo_login(new Date());
