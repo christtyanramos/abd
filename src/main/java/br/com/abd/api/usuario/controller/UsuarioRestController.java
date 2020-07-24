@@ -27,6 +27,6 @@ public class UsuarioRestController {
             resource.setId(null);
         }
 
-        return new ResponseEntity<>(new UsuarioResource(this.usuarioService.saveOrUpdate(resource.toEntity())), HttpStatus.CREATED);
+        return new ResponseEntity<>(new UsuarioResource(this.usuarioService.save(resource.toEntity())), HttpStatus.CREATED);
     }
 }

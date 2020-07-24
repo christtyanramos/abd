@@ -25,22 +25,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     private TelefoneService telefoneService;
 
     @Override
-    public Usuario saveOrUpdate(Usuario usuario) {
+    public Usuario save(Usuario usuario) {
 
         if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
             throw new HttpException("E-mail já existente", HttpStatus.CONFLICT);
         }
 
-        if (usuario.getId() == null) {
-
-            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-            usuario.setData_criacao(new Date());
-            usuario.setData_atualizacao(null);
-            usuario.setUltimo_login(new Date());
-
-        } else {
-            usuario.setData_atualizacao(new Date());
-        }
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setData_criacao(new Date());
+        usuario.setData_atualizacao(null);
+        usuario.setUltimo_login(new Date());
 
         usuario = usuarioRepository.save(usuario);
 
@@ -53,4 +47,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return usuario;
     }
+
 }

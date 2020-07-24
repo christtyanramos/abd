@@ -4,5 +4,6 @@ import br.com.abd.api.usuario.entity.Usuario;
 
 public interface UsuarioService {
 
-    Usuario saveOrUpdate(Usuario usuario);
+    Usuario save(Usuario usuario);
+
 }
